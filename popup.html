@@ -2,26 +2,27 @@
 <meta charset="utf-8">
 <html>
     <head>
-        <style>
-            body{
-                width:250px;
-                padding:0.5rem;
-            }
-            textarea{
-                width:50%;
-                font-size: 1.5rem;
-            }
-            #result{
-                font-size:2.5rem;
-            }
-        </style>
+        <link rel="stylesheet" href="style.css" />
+        <script src="popupScript.js"></script>
     </head>
     <body>
-        <h1>업자 없는 중고나라</h1>
-        <div id="res"></div>
-        <textarea id="seler_id" rows="1"></textarea>
-        <button type="button" id="userAddButton">Click</button>
-        <button type="button" id="eraseButton">업자 지우기!</button>
+        <div class="tab">
+            <button class="tabLinks" onclick="clickTab(event, 'Home')">Home</button>
+            <button class="tabLinks" onclick="clickTab(event, 'BlockList')">BlockList</button>
+        </div>
+
+        <div id="Home" class="tabContent">
+            <label for="cafeNickNameInput">차단할 유저 닉네임</label>
+            <input type="text" name="nickname" class="input_text" id="cafeNickNameInput" style="width:190px; height:18px" maxlength="20" onkeydown="if(event.keyCode == 13) return false;">
+            <button type="button" id="userAddButton">Click</button>
+            <button id="eraseButton">업자 지우기!</button>
+<!--            <div class="check_box">-->
+<!--                <input type="checkbox" id="eraseButton">업자 지우기!</input>-->
+<!--            </div>-->
+        </div>
+        <div id="BlockList" class="tabContent">
+            <p>임시 블락 리스트</p>
+        </div>
         <script src="handleExtension.js"></script>
     </body>
 </html>
