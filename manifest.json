@@ -9,13 +9,15 @@
       "default_icon": "icon.png",
       "default_popup": "popup.html"
     },
+    "background": {
+      "scripts": ["background.js"],
+      "persistent": false
+    },
     "permissions": [
-      "activeTab"
-    ],
-    "content_scripts": [
-      {
-        "matches": ["https://cafe.naver.com/joonggonara.html/*"],
-        "js": ["handleExtension.js"]
-      }
+      "activeTab",
+      "storage",
+      "webNavigation",
+      "http://./",
+      "https://*/"
     ]
   }
