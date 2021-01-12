@@ -15,11 +15,13 @@ function recoverDealer(){
     }
 }
 
+function testAlert(){
+    alert("Not erased");
+}
+
 recoverDealer();
 
-document.querySelector('#main-area').removeEventListener('change', function(){
-    chrome.tabs.executeScript({
-        file: 'recoverDealer.js'
-    });
-})
+// document.querySelector('#cafe_main').removeEventListener('change', eraseDealer);
 
+// document.getElementById('cafe_main').removeEventListener('load', eraseDealer, false);
+document.getElementById('cafe_main').addEventListener('load', recoverDealer, false);

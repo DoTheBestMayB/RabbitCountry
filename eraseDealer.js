@@ -17,8 +17,5 @@ function eraseDealer(){
 
 eraseDealer();
 
-document.querySelector('#main-area').addEventListener('change', function(){
-    chrome.tabs.executeScript({
-        file: 'eraseDealer.js'
-    });
-})
+// document.querySelector('#cafe_main').addEventListener('change', eraseDealer);
+document.getElementById('cafe_main').addEventListener('load', eraseDealer, false);

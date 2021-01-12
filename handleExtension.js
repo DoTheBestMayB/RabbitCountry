@@ -13,7 +13,7 @@ chrome.storage.sync.get(function(data){
 
 //차단하고 싶은 유저를 입력하고 버튼을 눌렀을 때, 차단하는 유저 반영
 document.getElementById('userAddButton').addEventListener("click", function(){
-    let seler_name = document.querySelector('#seler_id').value;
+    let seller_name = document.querySelector('#seler_id').value;
 
 });
 
