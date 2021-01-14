@@ -1,6 +1,8 @@
 function eraseDealer(){
     let inner_iframe = document.getElementById('cafe_main').contentWindow;
     let post_table = inner_iframe.document.querySelectorAll('#main-area > div.article-board.m-tcol-c')[1];
+    if(post_table === undefined) return
+
     let ls = post_table.querySelectorAll('div.article-board.m-tcol-c > table > tbody > tr');
 
     let idx;
