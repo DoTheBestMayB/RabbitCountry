@@ -18,3 +18,18 @@ function clickTab(evt, tabName) {
     document.getElementById(tabName).style.display = "block";
     evt.currentTarget.className += " active";
 }
+
+document.addEventListener('DOMContentLoaded', function() {
+    clickTab(event, 'Home');
+
+    let homeTab = document.getElementById('HomeTab');
+    homeTab.addEventListener('click', function () {
+        clickTab(event, 'Home');
+    });
+
+    let blockTab = document.getElementById('BlockTab');
+    blockTab.addEventListener('click', function () {
+        clickTab(event, 'BlockList');
+    })
+})
+

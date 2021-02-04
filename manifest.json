@@ -1,6 +1,5 @@
 {
     "manifest_version": 2,
-   
     "name": "당근나라",
     "description": "Erase Dealer!",
     "version": "1.0",
@@ -20,4 +19,4 @@
       "http://./",
       "https://*/"
     ]
-  }
+}

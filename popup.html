@@ -7,15 +7,14 @@
     </head>
     <body>
         <div class="tab">
-            <button class="tabLinks" onclick="clickTab(event, 'Home')">Home</button>
-            <button class="tabLinks" onclick="clickTab(event, 'BlockList')">BlockList</button>
+            <button class="tabLinks" id="HomeTab">Home</button>
+            <button class="tabLinks" id="BlockTab">BlockList</button>
         </div>
 
         <div id="Home" class="tabContent">
-            <label for="cafeNickNameInput">차단할 유저 닉네임</label>
-            <input type="text" name="nickname" class="input_text" id="cafeNickNameInput" style="width:190px; height:18px" maxlength="20" onkeydown="if(event.keyCode == 13) return false;">
+            <label for="sellerName">차단할 유저 닉네임</label>
+            <input type="text" name="nickname" class="input_text" id="sellerName" style="width:190px; height:18px" maxlength="20" onkeydown="if(event.keyCode == 13) return false;">
             <button type="button" id="userAddButton">Click</button>
-<!--            <button id="eraseButton">업자 지우기!</button>-->
             <div class="check_box">
                 <input type="checkbox" id="eraseButton">업자 지우기!</input>
             </div>

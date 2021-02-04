@@ -1,4 +1,4 @@
-chrome.webNavigation.onCompleted.addListener(function(){
+chrome.webNavigation.onDOMContentLoaded.addListener(function(){
     // 값을 가져오기
     chrome.storage.sync.get(function(data){
         let eraseDoChecked = data.eraseCheckBox;
