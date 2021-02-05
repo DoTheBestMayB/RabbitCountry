@@ -16,7 +16,6 @@
       "activeTab",
       "storage",
       "webNavigation",
-      "http://./",
-      "https://*/"
+      "*://cafe.naver.com/joonggonara*"
     ]
 }

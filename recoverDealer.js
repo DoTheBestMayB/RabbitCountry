@@ -15,15 +15,21 @@ function recoverDealer(){
     }
 }
 
-function testAlert(){
-    alert("Not erased");
+try{
+    let re = /https*:\/\/cafe.naver.com\/joonggonara/;
+    if(window.location.href.match(re)){
+        recoverDealer();
+        // document.querySelector('#cafe_main').removeEventListener('change', eraseDealer);
+
+        // removeEventListener 가 적용되지 않아 EventListener 를 추가해 덮음으로써 해결함
+        // 나중에 이 부분 해결해야 함
+        // document.getElementById('cafe_main').removeEventListener('load', eraseDealer, false);
+        document.getElementById('cafe_main').addEventListener('load', recoverDealer, false);
+    }
+} catch (e){
+    if(e instanceof TypeError){
+        // console.log("TypeErr");
+    } else{
+        throw e;
+    }
 }
-
-recoverDealer();
-
-// document.querySelector('#cafe_main').removeEventListener('change', eraseDealer);
-
-// removeEventListener 가 적용되지 않아 EventListener 를 추가해 덮음으로써 해결함
-// 나중에 이 부분 해결해야 함
-// document.getElementById('cafe_main').removeEventListener('load', eraseDealer, false);
-document.getElementById('cafe_main').addEventListener('load', recoverDealer, false);

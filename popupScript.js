@@ -20,6 +20,7 @@ function clickTab(evt, tabName) {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
+    // 이 부분 storage 이용해서 이전에 클릭했던 마지막 tab 클릭하도록 수정해야 함
     clickTab(event, 'Home');
 
     let homeTab = document.getElementById('HomeTab');

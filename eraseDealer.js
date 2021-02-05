@@ -18,10 +18,12 @@ function eraseDealer(){
 }
 
 try{
-    eraseDealer();
-
-    // document.querySelector('#cafe_main').addEventListener('change', eraseDealer);
-    document.getElementById('cafe_main').addEventListener('load', eraseDealer, false);
+    let re = /https*:\/\/cafe.naver.com\/joonggonara/;
+    if(window.location.href.match(re)){
+        eraseDealer();
+        // document.querySelector('#cafe_main').addEventListener('change', eraseDealer);
+        document.getElementById('cafe_main').addEventListener('load', eraseDealer, false);
+    }
 } catch (e){
     if(e instanceof TypeError){
         // console.log("TypeErr");
