@@ -5,7 +5,7 @@ chrome.storage.sync.get(function(data){
     document.querySelector('#eraseButton').checked = eraseDoChecked;
 
     if(eraseDoChecked){
-        chrome.tabs.executeScript({
+        chrome.scripting.executeScript({
             file: 'eraseDealer.js'
         });
     }
@@ -25,7 +25,7 @@ document.getElementById('eraseButton').addEventListener("change", function(){
             'eraseCheckBox': true
         });
 
-        chrome.tabs.executeScript({
+        chrome.scripting.executeScript({
             file: 'eraseDealer.js'
         });
     } else{
@@ -34,7 +34,7 @@ document.getElementById('eraseButton').addEventListener("change", function(){
             'eraseCheckBox': false
         });
 
-        chrome.tabs.executeScript({
+        chrome.scripting.executeScript({
             file: 'recoverDealer.js'
         });
     }

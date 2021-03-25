@@ -1,5 +1,5 @@
 {
-    "manifest_version": 2,
+    "manifest_version": 3,
     "name": "당근나라",
     "description": "Erase Dealer!",
     "version": "1.0",
@@ -15,7 +15,9 @@
     "permissions": [
       "activeTab",
       "storage",
-      "webNavigation",
-      "*://cafe.naver.com/joonggonara*"
-    ]
+      "webNavigation"
+    ],
+  "host_permissions": [
+    "*://cafe.naver.com/joonggonara*"
+  ]
 }
