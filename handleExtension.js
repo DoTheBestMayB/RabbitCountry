@@ -4,14 +4,14 @@ chrome.storage.sync.get(['eraseCheckBox'], function(data){
 
     document.querySelector('#eraseButton').checked = eraseDoChecked;
 
-    if(eraseDoChecked){
-        chrome.tabs.getCurrent(tab => function(){
-            chrome.scripting.executeScript({
-                target: {tabId: tab.id, allFrames: true},
-                files: ['eraseDealer.js']
-            });
-        })
-    }
+    // if(eraseDoChecked){
+    //     chrome.tabs.getCurrent(tab => function(){
+    //         chrome.scripting.executeScript({
+    //             target: {tabId: tab.id, allFrames: true},
+    //             files: ['eraseDealer.js']
+    //         });
+    //     })
+    // }
 })
 
 //차단하고 싶은 유저를 입력하고 버튼을 눌렀을 때, 차단하는 유저 반영
@@ -28,23 +28,13 @@ document.getElementById('eraseButton').addEventListener("change", function(){
             'eraseCheckBox': true
         });
 
-        chrome.tabs.getCurrent(tab => function(){
-            chrome.scripting.executeScript({
-                target: {tabId: tab.id, allFrames: true},
-                files: ['eraseDealer.js']
-            });
-        })
+        chrome.runtime.sendMessage({ msg: "eraseDo"});
     } else{
         // 크롬 스토리지에 상태 저장
         chrome.storage.sync.set({
             'eraseCheckBox': false
         });
 
-        chrome.tabs.getCurrent(tab => function(){
-            chrome.scripting.executeScript({
-                target: {tabId: tab.id, allFrames: true},
-                files: ['recoverDealer.js']
-            });
-        })
+        chrome.runtime.sendMessage({ msg: "recoverDo"});
     }
 });
