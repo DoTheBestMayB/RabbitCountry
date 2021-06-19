@@ -1,13 +1,16 @@
 // 값을 가져오기
-chrome.storage.sync.get(function(data){
+chrome.storage.sync.get(['eraseCheckBox'], function(data){
     let eraseDoChecked = data.eraseCheckBox;
 
     document.querySelector('#eraseButton').checked = eraseDoChecked;
 
     if(eraseDoChecked){
-        chrome.scripting.executeScript({
-            file: 'eraseDealer.js'
-        });
+        chrome.tabs.getCurrent(tab => function(){
+            chrome.scripting.executeScript({
+                target: {tabId: tab.id, allFrames: true},
+                files: ['eraseDealer.js']
+            });
+        })
     }
 })
 
@@ -25,17 +28,23 @@ document.getElementById('eraseButton').addEventListener("change", function(){
             'eraseCheckBox': true
         });
 
-        chrome.scripting.executeScript({
-            file: 'eraseDealer.js'
-        });
+        chrome.tabs.getCurrent(tab => function(){
+            chrome.scripting.executeScript({
+                target: {tabId: tab.id, allFrames: true},
+                files: ['eraseDealer.js']
+            });
+        })
     } else{
         // 크롬 스토리지에 상태 저장
         chrome.storage.sync.set({
             'eraseCheckBox': false
         });
 
-        chrome.scripting.executeScript({
-            file: 'recoverDealer.js'
-        });
+        chrome.tabs.getCurrent(tab => function(){
+            chrome.scripting.executeScript({
+                target: {tabId: tab.id, allFrames: true},
+                files: ['recoverDealer.js']
+            });
+        })
     }
 });

@@ -1,11 +1,11 @@
-chrome.webNavigation.onCommitted.addListener(function() {
+chrome.webNavigation.onCommitted.addListener(function(tab) {
     // 값을 가져오기
-    chrome.storage.sync.get(function (data) {
+    chrome.storage.sync.get(['eraseCheckBox'], function (data) {
         let eraseDoChecked = data.eraseCheckBox;
-
         if (eraseDoChecked) {
             chrome.scripting.executeScript({
-                file: 'eraseDealer.js'
+                target: {tabId: tab.tabId, allFrames: true},
+                files: ['eraseDealer.js']
             });
         }
     })
@@ -14,3 +14,4 @@ chrome.webNavigation.onCommitted.addListener(function() {
 //         {urlPrefix: 'https://cafe.naver.com/joonggonara'},
 //     ]
 });
+
