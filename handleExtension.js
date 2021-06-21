@@ -1,17 +1,6 @@
 // 값을 가져오기
 chrome.storage.sync.get(['eraseCheckBox'], function(data){
-    let eraseDoChecked = data.eraseCheckBox;
-
-    document.querySelector('#eraseButton').checked = eraseDoChecked;
-
-    // if(eraseDoChecked){
-    //     chrome.tabs.getCurrent(tab => function(){
-    //         chrome.scripting.executeScript({
-    //             target: {tabId: tab.id, allFrames: true},
-    //             files: ['eraseDealer.js']
-    //         });
-    //     })
-    // }
+    document.querySelector('#eraseButton').checked = data.eraseCheckBox;
 })
 
 //차단하고 싶은 유저를 입력하고 버튼을 눌렀을 때, 차단하는 유저 반영

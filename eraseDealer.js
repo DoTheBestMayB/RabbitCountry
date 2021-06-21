@@ -1,7 +1,7 @@
-console.log(document.documentURI);
+// console.log(document.documentURI);
 
 if (document.getElementById('cafe_main') !== null){
-    console.log("Erase");
+    // console.log("Erase");
     let inner_iframe = document.getElementById('cafe_main').contentWindow;
     let post_table = inner_iframe.document.querySelectorAll('#main-area > div.article-board.m-tcol-c')[1];
     if(post_table !== undefined){
@@ -19,41 +19,3 @@ if (document.getElementById('cafe_main') !== null){
         }
     }
 }
-
-
-// function eraseDealer(){
-//     let inner_iframe = document.getElementById('cafe_main').contentWindow;
-//     let post_table = inner_iframe.document.querySelectorAll('#main-area > div.article-board.m-tcol-c')[1];
-//     if(post_table === undefined) return
-//
-//     let ls = post_table.querySelectorAll('div.article-board.m-tcol-c > table > tbody > tr');
-//
-//     let idx;
-//     let dealer_link = 'https://cafe.pstatic.net/levelicon/1/1_150.gif';
-//
-//     for(idx=ls.length-1; idx>=0; idx--){
-//         let src = ls[idx].querySelector('td.td_name > div > table > tbody > tr > td > span > img').getAttribute('src');
-//
-//         if(src === dealer_link){
-//             ls[idx].setAttribute('style', 'display: none;');
-//         }
-//     }
-// }
-
-// try{
-//     eraseDealer();
-//     document.getElementById('cafe_main').addEventListener('load', eraseDealer, false);
-//
-//     // let re = /https*:\/\/cafe.naver.com\/joonggonara/;
-//     // if(window.location.href.match(re)){
-//     //     eraseDealer();
-//     //     // document.querySelector('#cafe_main').addEventListener('change', eraseDealer);
-//     //     document.getElementById('cafe_main').addEventListener('load', eraseDealer, false);
-//     // }
-// } catch (e){
-//     if(e instanceof TypeError){
-//         // console.log("TypeErr");
-//     } else{
-//         throw e;
-//     }
-// }
