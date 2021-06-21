@@ -1,5 +1,7 @@
+console.log(document.documentURI);
+
 if (document.getElementById('cafe_main') !== null){
-    // console.log("Erase");
+    console.log("Erase");
     let inner_iframe = document.getElementById('cafe_main').contentWindow;
     let post_table = inner_iframe.document.querySelectorAll('#main-area > div.article-board.m-tcol-c')[1];
     if(post_table !== undefined){
