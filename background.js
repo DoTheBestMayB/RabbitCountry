@@ -2,7 +2,7 @@ chrome.webNavigation.onCompleted.addListener(function(tab) {
     // 값을 가져오기
     chrome.storage.sync.get(['eraseCheckBox'], function (data) {
         // getFrameId("ArticleList", data.eraseCheckBox, tab);
-        let includeStr = "MyCafeIntro";
+        let includeStr = "cafe";
         let notIncludeStr = "ArticleList";
         let file_name = "";
         chrome.webNavigation.getAllFrames({tabId: tab.tabId}, function (res) {
