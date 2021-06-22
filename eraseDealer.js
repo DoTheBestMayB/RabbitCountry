@@ -1,9 +1,9 @@
-// console.log(document.documentURI);
-
-if (document.getElementById('cafe_main') !== null){
+function eraseDealer(){
     console.log("Erase");
-    let inner_iframe = document.getElementById('cafe_main').contentWindow;
-    let post_table = inner_iframe.document.querySelectorAll('#main-area > div.article-board.m-tcol-c')[1];
+    console.log(document.URL);
+    // let inner_iframe = document.getElementById('cafe_main').contentWindow;
+    let post_table = document.querySelectorAll('#main-area > div.article-board.m-tcol-c')[1];
+    console.log(post_table);
     if(post_table !== undefined){
         let ls = post_table.querySelectorAll('div.article-board.m-tcol-c > table > tbody > tr');
 
@@ -19,3 +19,23 @@ if (document.getElementById('cafe_main') !== null){
         }
     }
 }
+
+let config = { attributes: true, childList: true, subtree: true, characterData: false };
+let htmlBody = document.querySelector('body');
+
+let observer = new MutationObserver(function(mutations, observer) {
+    mutations.forEach(function(mutation) {
+        console.log("Mutation call");
+        let target = document.getElementById('content-area');
+        if (target){
+            console.log("Yes, find");
+            eraseDealer();
+        }
+
+        // observer.disconnect()
+
+    });
+});
+
+observer.observe(htmlBody, config);
+
