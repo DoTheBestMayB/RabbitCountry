@@ -17,9 +17,29 @@ function recoverDealer(){
     }
 }
 
+
 if(typeof(observerErase) != 'undefined'){
     observerErase.disconnect();
 }
 
-// console.log("Recover");
+// console.log("Recover Mutation");
 recoverDealer();
+
+var config = { attributes: true, childList: true, subtree: true, characterData: false };
+var htmlBody = document.querySelector('#main-area');
+
+var observerRecover = new MutationObserver(function(mutations, observer) {
+    mutations.forEach(function(mutation) {
+        // console.log("Mutation call - recover");
+        let target = document.getElementById('content-area');
+        if (target){
+            // console.log("Yes, find");
+            recoverDealer();
+        }
+
+        // observer.disconnect()
+
+    });
+});
+
+observerRecover.observe(htmlBody, config);

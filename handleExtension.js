@@ -1,5 +1,5 @@
 // 값을 가져오기
-chrome.storage.sync.get(['eraseCheckBox'], function(data){
+chrome.storage.local.get(['eraseCheckBox'], function(data){
     document.querySelector('#eraseButton').checked = data.eraseCheckBox;
 })
 
@@ -13,17 +13,17 @@ document.getElementById('userAddButton').addEventListener("click", function(){
 document.getElementById('eraseButton').addEventListener("change", function(){
     if(this.checked){
         // 크롬 스토리지에 상태 저장
-        chrome.storage.sync.set({
-            'eraseCheckBox': true
+        chrome.storage.local.set({
+            'eraseCheckBox': this.checked
+        }, _ => {
+            chrome.runtime.sendMessage({ msg: "handleExtension", mutation: true});
         });
-
-        chrome.runtime.sendMessage({ msg: "eraseDo"});
     } else{
         // 크롬 스토리지에 상태 저장
-        chrome.storage.sync.set({
-            'eraseCheckBox': false
+        chrome.storage.local.set({
+            'eraseCheckBox': this.checked
+        }, _ => {
+            chrome.runtime.sendMessage({ msg: "handleExtension", mutation: false});
         });
-
-        chrome.runtime.sendMessage({ msg: "recoverDo"});
     }
 });

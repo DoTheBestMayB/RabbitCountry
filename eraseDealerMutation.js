@@ -21,6 +21,24 @@ function eraseDealer(){
 //     observerRecover.disconnect();
 // }
 
-// console.log("Erase");
+// console.log("Erase Mutation");
 eraseDealer();
 
+var config = { attributes: true, childList: true, subtree: true, characterData: false };
+var htmlBody = document.querySelector('#main-area');
+
+var observerErase = new MutationObserver(function(mutations, observer) {
+    mutations.forEach(function(mutation) {
+        // console.log("Mutation call - erase");
+        let target = document.getElementById('content-area');
+        if (target){
+            // console.log("Yes, find");
+            eraseDealer();
+        }
+
+        // observer.disconnect()
+
+    });
+});
+
+observerErase.observe(htmlBody, config);
