@@ -33,6 +33,6 @@
 
 ![6](https://user-images.githubusercontent.com/48354989/123371964-a7761100-d5bd-11eb-8110-d5d5a255ac70.png)
 
-- 업자 게시물이 많아 나오는 게시글 목록이 적을 경우 우측 상단에서 50개씩 보기를 선택하시면 됩니다.
+- 업자 게시물이 많아 나와 게시글 목록이 적을 경우 우측 상단에서 50개씩 보기를 선택하시면 됩니다.
 
 ![7](https://user-images.githubusercontent.com/48354989/123373229-02106c80-d5c0-11eb-90b2-9e36b6c8771b.png)
