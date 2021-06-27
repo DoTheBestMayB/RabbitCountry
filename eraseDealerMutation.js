@@ -7,13 +7,21 @@ function eraseDealer(){
         let idx;
         let dealer_link = 'https://cafe.pstatic.net/levelicon/1/1_150.gif';
 
-        for(idx=ls.length-1; idx>=0; idx--){
-            let src = ls[idx].querySelector('td.td_name > div > table > tbody > tr > td > span > img').getAttribute('src');
+        chrome.storage.local.get(['eraseList'], function(data){
+            var eraseList = data['eraseList'];
 
-            if(src === dealer_link){
-                ls[idx].setAttribute('style', 'display: none;');
+            for(idx=ls.length-1; idx>=0; idx--){
+                let src = ls[idx].querySelector('td.td_name > div > table > tbody > tr > td > span > img').getAttribute('src');
+                let nickName = ls[idx].querySelector('td.td_name > div > table > tbody > tr > td > a').textContent;
+                if(src === dealer_link){
+                    ls[idx].setAttribute('style', 'display: none;');
+                } else if(eraseList.includes(nickName)){
+                    ls[idx].setAttribute('style', 'display: none;');
+                }
             }
-        }
+        });
+
+
     }
 }
 

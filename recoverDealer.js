@@ -8,11 +8,12 @@ function recoverDealer(){
         let dealer_link = 'https://cafe.pstatic.net/levelicon/1/1_150.gif';
 
         for(idx=ls.length-1; idx>=0; idx--){
-            let src = ls[idx].querySelector('td.td_name > div > table > tbody > tr > td > span > img').getAttribute('src');
+            ls[idx].setAttribute('style', '');
+            // let src = ls[idx].querySelector('td.td_name > div > table > tbody > tr > td > span > img').getAttribute('src');
 
-            if(src === dealer_link){
-                ls[idx].setAttribute('style', '');
-            }
+            // if(src === dealer_link){
+            //     ls[idx].setAttribute('style', '');
+            // }
         }
     }
 }
