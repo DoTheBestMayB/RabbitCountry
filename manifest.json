@@ -2,7 +2,7 @@
     "manifest_version": 3,
     "name": "당근나라",
     "description": "Erase Dealer!",
-    "version": "1.1",
+    "version": "1.2",
     "background": {
       "service_worker": "background.js"
     },
@@ -17,6 +17,7 @@
     "default_icon": "icon.png"
   },
   "host_permissions": [
+    "*://cafe.naver.com/*",
     "*://cafe.naver.com/joonggonara*",
     "*://cafe.naver.com/joonggonara#*"
   ]

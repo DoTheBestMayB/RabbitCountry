@@ -31,6 +31,19 @@ document.addEventListener('DOMContentLoaded', function() {
     let blockTab = document.getElementById('BlockTab');
     blockTab.addEventListener('click', function () {
         clickTab(event, 'BlockList');
-    })
-})
+    });
 
+    let siteTab = document.getElementById('SiteTab');
+    siteTab.addEventListener('click', function () {
+        clickTab(event, 'Site');
+    });
+
+    let etcTab = document.getElementById('EtcTab');
+    etcTab.addEventListener('click', function () {
+        clickTab(event, 'Etc');
+    });
+});
+
+document.getElementById('goGithub').addEventListener("click", function(){
+    window.open('https://github.com/DoTheBestMayB/RabbitCountry');
+});

@@ -29,12 +29,9 @@ document.getElementById('userAddButton').addEventListener("click", function(){
     chrome.storage.local.get(['eraseList'], function(data){
         var eraseList = [];
 
-        console.log(data);
         if(data['eraseList'] != undefined){
             // eraseList = data['eraseList'];
             eraseList = data['eraseList'];
-            console.log("There's eraseList");
-            console.log(eraseList);
         }
 
         if(eraseList.includes(sellerName)){
@@ -50,7 +47,7 @@ document.getElementById('userAddButton').addEventListener("click", function(){
             var cellName = row.insertCell(0);
             var cellButton = row.insertCell(1);
             cellName.innerHTML = sellerName;
-            cellButton.innerHTML = '<td>' + '<input type="checkbox" id="tableN' + sellerName + '">삭제</input> </td>';
+            cellButton.innerHTML = '<td>' + '<input type="checkbox" class="tableN">삭제</input> </td>';
         }
     })
 });
@@ -62,8 +59,6 @@ document.getElementById('eraseUser').addEventListener("click", function(){
         chrome.storage.local.get(['eraseList'], function(data){
             var eraseList = data['eraseList'];
             for(var idx=uList.length - 1; idx>=0; idx--){
-                console.log(idx);
-                console.log(uList[idx]);
                 if(uList[idx].checked){
                     eraseList.splice(idx, 1);
                     uList[idx].parentElement.parentElement.remove();
@@ -76,11 +71,59 @@ document.getElementById('eraseUser').addEventListener("click", function(){
     }
 });
 
+// 적용할 카페 이름을 host permission 에 추가하기
+document.getElementById('cafeAddButton').addEventListener("click", function(){
+    var cafeName = document.querySelector('#cafeName').value;
+
+    chrome.storage.local.get(['hostNameList'], function(data){
+        var hostNameList = [];
+
+        if(data['hostNameList'] != undefined){
+            // eraseList = data['eraseList'];
+            hostNameList = data['hostNameList'];
+        }
+
+        if(hostNameList.includes(cafeName)){
+            alert(cafeName + " 이미 등록되었습니다!");
+        } else {
+            hostNameList.push(cafeName);
+            chrome.storage.local.set({
+                'hostNameList': hostNameList
+            });
+            alert(cafeName + " 등록되었습니다!");
+            var tbody = document.querySelector('#siteTbody');
+            var row = document.querySelector('#siteTbody').insertRow(tbody.rows.length);
+            var cellName = row.insertCell(0);
+            var cellButton = row.insertCell(1);
+            cellName.innerHTML = cafeName;
+            cellButton.innerHTML = '<td>' + '<input type="checkbox" class="siteN">삭제</input> </td>';
+        }
+    })
+});
+
+// checkBox 로 host permission 에서 제거 하기
+document.getElementById('eraseSite').addEventListener("click", function(){
+    var uList = document.getElementsByClassName('siteN');
+    if(uList.length > 0){
+        chrome.storage.local.get(['hostNameList'], function(data){
+            var hostNameList = data['hostNameList'];
+            for(var idx=uList.length - 1; idx>=0; idx--){
+                if(uList[idx].checked){
+                    hostNameList.splice(idx, 1);
+                    uList[idx].parentElement.parentElement.remove();
+                }
+            }
+            chrome.storage.local.set({
+                'hostNameList': hostNameList
+            });
+        });
+    }
+});
+
 // 유저 테이블 생성
 function makeTable(){
     chrome.storage.local.get(['eraseList'], function(data){
         var eraseList = [];
-        var html = '';
 
         if(data['eraseList'] != undefined){
             eraseList = data['eraseList'];
@@ -93,9 +136,23 @@ function makeTable(){
                 cellButton.innerHTML = '<td>' + '<input type="checkbox" class="tableN">삭제</input> </td>';
             }
 
+        }
+    });
 
-            // $("#blockTbody").empty();
-            // $("#blockTbody").append(html);
+    chrome.storage.local.get(['hostNameList'], function(data){
+        var hostNameList = [];
+
+        if(data['hostNameList'] != undefined){
+            hostNameList = data['hostNameList'];
+            var tbody = document.querySelector('#siteTbody');
+            for(var idx=0; idx<hostNameList.length; idx++){
+                var row = document.querySelector('#siteTbody').insertRow(tbody.rows.length);
+                var cellName = row.insertCell(0);
+                var cellButton = row.insertCell(1);
+                cellName.innerHTML = hostNameList[idx];
+                cellButton.innerHTML = '<td>' + '<input type="checkbox" class="siteN">삭제</input> </td>';
+            }
+
         }
     });
 }
