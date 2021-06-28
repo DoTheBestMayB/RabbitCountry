@@ -14,20 +14,44 @@ function injectScript2(tabId, isMutation=true){
     });
 }
 
-chrome.webNavigation.onCompleted.addListener(function(tab) {
+chrome.webNavigation.onDOMContentLoaded.addListener(function(tab){
     if(tab.frameId == 0) {
         chrome.storage.local.get(['hostNameList'], function(data){
             var hostList = data['hostNameList'];
-            for(var idx=0; idx<hostList.length; idx++){
-                if(tab.url.includes(hostList[idx])) {
-                    // console.log("webNavigation Calling");
-                    injectScript2(tab.tabId);
-                    break;
+            if(tab.url.includes('joonggonara')){
+                injectScript2(tab.tabId);
+            } else if(hostList != undefined) {
+                for(var idx=0; idx<hostList.length; idx++){
+                    if(tab.url.includes(hostList[idx])) {
+                        // console.log("webNavigation Calling");
+                        injectScript2(tab.tabId);
+                        break;
+                    }
                 }
             }
         });
     }
 });
+
+// chrome.webNavigation.onCompleted.addListener(function(tab) {
+//     if(tab.frameId == 0) {
+//         console.log("onCompledted");
+//         chrome.storage.local.get(['hostNameList'], function(data){
+//             var hostList = data['hostNameList'];
+//             if(tab.url.includes('joonggonara')){
+//                 injectScript2(tab.tabId);
+//             } else if(hostList != undefined) {
+//                 for(var idx=0; idx<hostList.length; idx++){
+//                     if(tab.url.includes(hostList[idx])) {
+//                         // console.log("webNavigation Calling");
+//                         injectScript2(tab.tabId);
+//                         break;
+//                     }
+//                 }
+//             }
+//         });
+//     }
+// });
 
 chrome.runtime.onMessage.addListener(
     function(message, sender, sendResponse) {
