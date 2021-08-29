@@ -7,7 +7,7 @@
 
 첫번째 글은 적용되지 않는 버그 존재
 
-helped with Stackoverflow user wOxxOm [관련 질문](https://stackoverflow.com/questions/68888784/how-to-prevent-hide-and-show-flickering-of-mutationobserver-for-iframe/68891354#68891354)
+helped with Stackoverflow user wOxxOm [관련 질문](https://stackoverflow.com/questions/68888784/how-to-prevent-hide-and-show-flickering-of-mutationobserver-for-iframe/68891354#68891354) [관련 내용](https://github.com/DoTheBestMayB/RabbitCountry/issues/1)
 
 ## 2021.06.28
 적용 가능한 카페 추가/삭제 구현
