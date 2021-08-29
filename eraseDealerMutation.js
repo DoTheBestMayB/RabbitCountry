@@ -1,6 +1,5 @@
-function eraseDealer(){
-    let inner_iframe = document.getElementById('cafe_main').contentWindow;
-    let post_table = inner_iframe.document.querySelectorAll('#main-area > div.article-board.m-tcol-c')[1];
+function eraseDealerInitial(){
+    let post_table = fw.document.querySelectorAll('#main-area > div.article-board.m-tcol-c')[1];
     if(post_table !== undefined){
         let ls = post_table.querySelectorAll('div.article-board.m-tcol-c > table > tbody > tr');
 
@@ -20,33 +19,52 @@ function eraseDealer(){
                 }
             }
         });
-
-
     }
 }
 
-// if(typeof(observerRecover) != 'undefined'){
-//     observerRecover.disconnect();
-// }
+var SEL = '.td_name img[src="https://cafe.pstatic.net/levelicon/1/1_150.gif"]';
+var fw = document.querySelector('#cafe_main').contentWindow;
+eraseDealerInitial();
+fw.addEventListener('unload', checkFrameReady);
 
-// console.log("Erase Mutation");
-eraseDealer();
+function checkFrameReady(e) {
+    if (!e.type) {
+        // DOMException occur until iframe is identified as same-origin as main frame
+        try {
+            startObserver(new fw.MutationObserver(eraseDealer));
+            fw.addEventListener('unload', checkFrameReady);
+            return; // to prevent unlimited recursive function call
+        } catch (e) {}
+    }
+    // If DOMException occur, checkFrameReady is called again.
+    requestAnimationFrame(checkFrameReady);
+}
 
-var config = { attributes: true, childList: true, subtree: true, characterData: false };
-var htmlBody = document.querySelector('#main-area');
-
-var observerErase = new MutationObserver(function(mutations, observer) {
-    mutations.forEach(function(mutation) {
-        // console.log("Mutation call - erase");
-        let target = document.getElementById('content-area');
-        if (target){
-            // console.log("Yes, find");
-            eraseDealer();
+function eraseDealer(mutations, observer) {
+    let stopped;
+    // mutations have changes as a list of MutationRecord https://javascript.info/mutation-observer
+    // addedNodes is nodes that added
+    if(typeof mutations === 'undefined') return
+    for (const { addedNodes } of mutations) {
+        for (const n of addedNodes) {
+            // pass when encounter text
+            // ex) If there are <div>hi</div>, 'hi' text can be addedNoes
+            if (!n.tagName){
+                continue;
+            }
+            // check addedNode is correct to what want to erase
+            // if n is element what want to erase or n has grand child element what want to erase if n has child element
+            const elems = n.matches(SEL) && [n] ||
+                n.firstElementChild && n.querySelectorAll(SEL);
+            if (!elems || !elems.length) continue;
+            if (!stopped) { stopped = true; observer.disconnect(); }
+            elems.forEach(el => el.closest('.td_name').closest('tr').setAttribute('style', 'display: none;'));
         }
+    }
+    if (stopped) startObserver(observer);
+}
 
-        // observer.disconnect()
-
-    });
-});
-
-observerErase.observe(htmlBody, config);
+function startObserver(observer) {
+    observer.observe(fw.document.body || fw.document.documentElement,
+        {childList: true, subtree: true});
+}
