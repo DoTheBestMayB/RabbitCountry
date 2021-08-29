@@ -2,6 +2,13 @@
 업자가 너무 많아 불편한 중고나라, 이제 업자 없는 게시판을 사용할 수 있습니다!
 
 # 개발 내역
+## 2021.08.29
+글이 지워질때 깜빡이는 현상 수정
+
+첫번째 글은 적용되지 않는 버그 존재
+
+helped with Stackoverflow user wOxxOm [관련 질문](https://stackoverflow.com/questions/68888784/how-to-prevent-hide-and-show-flickering-of-mutationobserver-for-iframe/68891354#68891354)
+
 ## 2021.06.28
 적용 가능한 카페 추가/삭제 구현
 
