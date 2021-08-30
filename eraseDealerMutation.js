@@ -23,6 +23,7 @@ function eraseDealerInitial(){
 }
 
 var SEL = '.td_name img[src="https://cafe.pstatic.net/levelicon/1/1_150.gif"]';
+var NAME = '.td_name a'
 var fw = document.querySelector('#cafe_main').contentWindow;
 eraseDealerInitial();
 fw.addEventListener('unload', checkFrameReady);
@@ -45,23 +46,27 @@ function eraseDealer(mutations, observer) {
     // mutations have changes as a list of MutationRecord https://javascript.info/mutation-observer
     // addedNodes is nodes that added
     if(typeof mutations === 'undefined') return
-    for (const { addedNodes } of mutations) {
-        for (const n of addedNodes) {
-            // pass when encounter text
-            // ex) If there are <div>hi</div>, 'hi' text can be addedNoes
-            if (!n.tagName){
-                continue;
+    chrome.storage.local.get(['eraseList'], function(data) {
+        var eraseList = data['eraseList'];
+
+        for (const { addedNodes } of mutations) {
+            for (const n of addedNodes) {
+                // pass when encounter text
+                // ex) If there are <div>hi</div>, 'hi' text can be addedNoes
+                if (!n.tagName){
+                    continue;
+                }
+                // check addedNode is correct to what want to erase
+                // if n is element what want to erase or n has grand child element what want to erase if n has child element
+                const elems = n.matches(SEL) && [n] || n.firstElementChild && n.querySelectorAll(SEL) ||
+                    n.matches(NAME) && eraseList.includes(n.text) && [n];
+                if (!elems || !elems.length) continue;
+                if (!stopped) { stopped = true; observer.disconnect(); }
+                elems.forEach(el => el.closest('.td_name').closest('tr').setAttribute('style', 'display: none;'));
             }
-            // check addedNode is correct to what want to erase
-            // if n is element what want to erase or n has grand child element what want to erase if n has child element
-            const elems = n.matches(SEL) && [n] ||
-                n.firstElementChild && n.querySelectorAll(SEL);
-            if (!elems || !elems.length) continue;
-            if (!stopped) { stopped = true; observer.disconnect(); }
-            elems.forEach(el => el.closest('.td_name').closest('tr').setAttribute('style', 'display: none;'));
         }
-    }
-    if (stopped) startObserver(observer);
+        if (stopped) startObserver(observer);
+    });
 }
 
 function startObserver(observer) {
