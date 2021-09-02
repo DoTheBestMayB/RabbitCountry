@@ -1,5 +1,6 @@
 # RabbitCountry
 네이버 카페 게시물 필터링을 도와주는 크롬 확장프로그램 입니다.
+
 문의 사항이 있을 경우 [Issues](https://github.com/DoTheBestMayB/RabbitCountry/issues)에 남겨주세요.
 
 # 개발 내역
