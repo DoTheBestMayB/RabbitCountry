@@ -17,12 +17,14 @@
             <div>ex)cafe.naver.com/example 일 경우, example 입력</div>
             <input type="text" name="cafeName" class="input_text" id="cafeName" style="width:190px; height:18px" maxlength="20">
             <button type="button" id="cafeAddButton">추가</button>
+            <button type="button" id="nowCafeAddButton">현재 주소 추가</button>
+
             <br></br>
             <label for="sellerName">차단할 유저 닉네임</label>
             <input type="text" name="nickname" class="input_text" id="sellerName" style="width:190px; height:18px" maxlength="20">
             <button type="button" id="userAddButton">추가</button>
             <div class="check_box">
-                <input type="checkbox" id="eraseButton">업자 지우기!</input>
+                <input type="checkbox" id="eraseButton" >업자 지우기!</input>
             </div>
         </div>
         <div id="BlockList" class="tabContent">
@@ -30,9 +32,9 @@
                 <thead>
                 <tr>
                     <th>닉네임</th>
-                    <th>삭제</th>
                     <th>
-                        <button type="button" id="eraseUser">삭제하기</button>
+                        <button type="button" id="selectAllUser">모두 선택</button>
+                        <button type="button" id="eraseUser">선택 삭제</button>
                     </th>
                 </tr>
                 </thead>
@@ -45,9 +47,9 @@
                 <thead>
                 <tr>
                     <th>카페주소</th>
-                    <th>삭제</th>
                     <th>
-                        <button type="button" id="eraseSite">삭제하기</button>
+                        <button type="button" id="selectAllSite">모두 선택</button>
+                        <button type="button" id="eraseSite">선택 삭제</button>
                     </th>
                 </tr>
                 </thead>
@@ -60,5 +62,6 @@
         </div>
         <script src="handleExtension.js"></script>
         <script src="popupScript.js"></script>
+        <div id="snackbar"></div>
     </body>
 </html>
