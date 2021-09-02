@@ -1,4 +1,4 @@
-function eraseDealerInitial(){
+function erase_dealer_initial(){
     let post_table = fw.document.querySelectorAll('#main-area > div.article-board.m-tcol-c')[1];
     if(post_table !== undefined){
         let ls = post_table.querySelectorAll('div.article-board.m-tcol-c > table > tbody > tr');
@@ -25,23 +25,23 @@ function eraseDealerInitial(){
 var SEL = '.td_name img[src="https://cafe.pstatic.net/levelicon/1/1_150.gif"]';
 var NAME = '.td_name a'
 var fw = document.querySelector('#cafe_main').contentWindow;
-eraseDealerInitial();
-fw.addEventListener('unload', checkFrameReady);
+erase_dealer_initial();
+fw.addEventListener('unload', check_frame_ready);
 
-function checkFrameReady(e) {
+function check_frame_ready(e) {
     if (!e.type) {
         // DOMException occur until iframe is identified as same-origin as main frame
         try {
-            startObserver(new fw.MutationObserver(eraseDealer));
-            fw.addEventListener('unload', checkFrameReady);
+            start_observer(new fw.MutationObserver(erase_dealer));
+            fw.addEventListener('unload', check_frame_ready);
             return; // to prevent unlimited recursive function call
         } catch (e) {}
     }
-    // If DOMException occur, checkFrameReady is called again.
-    requestAnimationFrame(checkFrameReady);
+    // If DOMException occur, check_frame_ready is called again.
+    requestAnimationFrame(check_frame_ready);
 }
 
-function eraseDealer(mutations, observer) {
+function erase_dealer(mutations, observer) {
     let stopped;
     // mutations have changes as a list of MutationRecord https://javascript.info/mutation-observer
     // addedNodes is nodes that added
@@ -65,11 +65,11 @@ function eraseDealer(mutations, observer) {
                 elems.forEach(el => el.closest('.td_name').closest('tr').setAttribute('style', 'display: none;'));
             }
         }
-        if (stopped) startObserver(observer);
+        if (stopped) start_observer(observer);
     });
 }
 
-function startObserver(observer) {
+function start_observer(observer) {
     observer.observe(fw.document.body || fw.document.documentElement,
         {childList: true, subtree: true});
 }
