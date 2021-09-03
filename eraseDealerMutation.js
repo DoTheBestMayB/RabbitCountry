@@ -14,7 +14,7 @@ function erase_dealer_initial(){
                 let nickName = ls[idx].querySelector('td.td_name > div > table > tbody > tr > td > a').textContent;
                 if(src === dealer_link){
                     ls[idx].setAttribute('style', 'display: none;');
-                } else if(eraseList.includes(nickName)){
+                } else if(eraseList && eraseList.includes(nickName)){
                     ls[idx].setAttribute('style', 'display: none;');
                 }
             }
@@ -59,7 +59,7 @@ function erase_dealer(mutations, observer) {
                 // check addedNode is correct to what want to erase
                 // if n is element what want to erase or n has grand child element what want to erase if n has child element
                 const elems = n.matches(SEL) && [n] || n.firstElementChild && n.querySelectorAll(SEL) ||
-                    n.matches(NAME) && eraseList.includes(n.text) && [n];
+                    n.matches(NAME) && eraseList && eraseList.includes(n.text) && [n];
                 if (!elems || !elems.length) continue;
                 if (!stopped) { stopped = true; observer.disconnect(); }
                 elems.forEach(el => el.closest('.td_name').closest('tr').setAttribute('style', 'display: none;'));
