@@ -1,5 +1,7 @@
 # RabbitCountry
-업자가 너무 많아 불편한 중고나라, 이제 업자 없는 게시판을 사용할 수 있습니다!
+네이버 카페 게시물 필터링을 도와주는 크롬 확장프로그램 입니다.
+
+문의 사항이 있을 경우 [Issues](https://github.com/DoTheBestMayB/RabbitCountry/issues)에 남겨주세요.
 
 # 개발 내역
 
