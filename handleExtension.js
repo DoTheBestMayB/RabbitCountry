@@ -79,7 +79,7 @@ document.getElementById('eraseButton').addEventListener('change', function() {
         chrome.storage.local.set({
             'eraseCheckBox': this.checked
         }, _ => {
-            chrome.runtime.sendMessage({ msg: 'handleExtension', mutation: false});
+            chrome.runtime.sendMessage({ msg: 'handleExtension', mutation: true});
         });
     }
 });

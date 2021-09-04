@@ -10,36 +10,15 @@ function recoverDealer(){
         for(idx=ls.length-1; idx>=0; idx--){
             let src = ls[idx].querySelector('td.td_name > div > table > tbody > tr > td > span > img').getAttribute('src');
 
-            if(src === dealer_link){
+            if (ls[idx].getAttribute('style')) {
                 ls[idx].setAttribute('style', '');
             }
         }
     }
 }
 
-
-if(typeof(observerErase) != 'undefined'){
-    observerErase.disconnect();
-}
-
-// console.log("Recover Mutation");
 recoverDealer();
 
-var config = { attributes: true, childList: true, subtree: true, characterData: false };
-var htmlBody = document.querySelector('#main-area');
-
-var observerRecover = new MutationObserver(function(mutations, observer) {
-    mutations.forEach(function(mutation) {
-        // console.log("Mutation call - recover");
-        let target = document.getElementById('content-area');
-        if (target){
-            // console.log("Yes, find");
-            recoverDealer();
-        }
-
-        // observer.disconnect()
-
-    });
-});
-
-observerRecover.observe(htmlBody, config);
+try {
+    fw.removeEventListener('unload', check_frame_ready);
+} catch(e) {}
