@@ -60,7 +60,7 @@ function erase_dealer(mutations, observer) {
                 // check addedNode is correct to what want to erase
                 // if n is element what want to erase or n has grand child element what want to erase if n has child element
                 const elems = isDeleteVIP && ( n.matches(SEL) && [n] || n.firstElementChild && n.querySelectorAll(SEL) ) ||
-                    n.matches(NAME) && eraseList.includes(n.text) && [n];
+                    n.matches(NAME) && eraseList && eraseList.includes(n.text) && [n];
                 if (!elems || !elems.length) continue;
                 if (!stopped) { stopped = true; observer.disconnect(); }
                 elems.forEach(el => el.closest('.td_name').closest('tr').setAttribute('style', 'display: none;'));
