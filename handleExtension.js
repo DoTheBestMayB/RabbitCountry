@@ -60,8 +60,9 @@ function show_toast_message(message) {
 }
 
 // 값을 가져오기
-chrome.storage.local.get(['eraseCheckBox'], function(data){
+chrome.storage.local.get(['eraseCheckBox', 'eraseVIP'], function(data){
     document.querySelector('#eraseButton').checked = data.eraseCheckBox;
+    document.querySelector('#blockVipUser').checked = data.eraseVIP;
 })
 
 // 업자, 등록된 유저 삭제하기
@@ -81,6 +82,14 @@ document.getElementById('eraseButton').addEventListener('change', function() {
             chrome.runtime.sendMessage({ msg: 'handleExtension', mutation: false});
         });
     }
+});
+
+// 최고등급 유저 차단 반영
+document.getElementById('blockVipUser').addEventListener('change', function() {
+    // 크롬 스토리지에 상태 저장
+    chrome.storage.local.set({
+        'eraseVIP': this.checked
+    });
 });
 
 //차단하고 싶은 유저를 입력하고 버튼을 눌렀을 때, 차단하는 유저 반영

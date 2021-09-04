@@ -6,15 +6,16 @@ function erase_dealer_initial(){
         let idx;
         let dealer_link = 'https://cafe.pstatic.net/levelicon/1/1_150.gif';
 
-        chrome.storage.local.get(['eraseList'], function(data){
+        chrome.storage.local.get(['eraseList', 'eraseVIP'], function(data){
             var eraseList = data['eraseList'];
+            var isDeleteVIP = data['eraseVIP'];
 
             for(idx=ls.length-1; idx>=0; idx--){
                 let src = ls[idx].querySelector('td.td_name > div > table > tbody > tr > td > span > img').getAttribute('src');
                 let nickName = ls[idx].querySelector('td.td_name > div > table > tbody > tr > td > a').textContent;
-                if(src === dealer_link){
+                if(isDeleteVIP && src === dealer_link){
                     ls[idx].setAttribute('style', 'display: none;');
-                } else if(eraseList && eraseList.includes(nickName)){
+                } else if(eraseList.includes(nickName)){
                     ls[idx].setAttribute('style', 'display: none;');
                 }
             }
@@ -46,9 +47,9 @@ function erase_dealer(mutations, observer) {
     // mutations have changes as a list of MutationRecord https://javascript.info/mutation-observer
     // addedNodes is nodes that added
     if(typeof mutations === 'undefined') return
-    chrome.storage.local.get(['eraseList'], function(data) {
+    chrome.storage.local.get(['eraseList', 'eraseVIP'], function(data) {
         var eraseList = data['eraseList'];
-
+        var isDeleteVIP = data['eraseVIP'];
         for (const { addedNodes } of mutations) {
             for (const n of addedNodes) {
                 // pass when encounter text
@@ -58,8 +59,8 @@ function erase_dealer(mutations, observer) {
                 }
                 // check addedNode is correct to what want to erase
                 // if n is element what want to erase or n has grand child element what want to erase if n has child element
-                const elems = n.matches(SEL) && [n] || n.firstElementChild && n.querySelectorAll(SEL) ||
-                    n.matches(NAME) && eraseList && eraseList.includes(n.text) && [n];
+                const elems = isDeleteVIP && ( n.matches(SEL) && [n] || n.firstElementChild && n.querySelectorAll(SEL) ) ||
+                    n.matches(NAME) && eraseList.includes(n.text) && [n];
                 if (!elems || !elems.length) continue;
                 if (!stopped) { stopped = true; observer.disconnect(); }
                 elems.forEach(el => el.closest('.td_name').closest('tr').setAttribute('style', 'display: none;'));
