@@ -3,6 +3,12 @@
 
 문의 사항이 있을 경우 [Issues](https://github.com/DoTheBestMayB/RabbitCountry/issues)에 남겨주세요.
 
+# 안내
+[설치방법](https://github.com/DoTheBestMayB/RabbitCountry/blob/master/doc/HowToInstall.md)
+
+[사용방법](https://github.com/DoTheBestMayB/RabbitCountry/blob/master/doc/HowToUse.md)
+
+
 # 개발 내역
 
 ## 2021.09.02
@@ -31,8 +37,3 @@ helped with Stackoverflow user wOxxOm [관련 질문](https://stackoverflow.com/
 ## 2021.06.25
 셀러회원으로 등록한 유저의 게시물만 삭제 가능합니다.
 - 차단하고자 하는 유저의 닉네임 등록은 추후 추가될 예정
-
-# 안내
-[설치방법](https://github.com/DoTheBestMayB/RabbitCountry/blob/master/doc/HowToInstall.md)
-
-[사용방법](https://github.com/DoTheBestMayB/RabbitCountry/blob/master/doc/HowToUse.md)
