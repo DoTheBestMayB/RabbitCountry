@@ -15,7 +15,7 @@ function erase_dealer_initial(){
                 let nickName = ls[idx].querySelector('td.td_name > div > table > tbody > tr > td > a').textContent;
                 if(isDeleteVIP && src === dealer_link){
                     ls[idx].setAttribute('style', 'display: none;');
-                } else if(eraseList.includes(nickName)){
+                } else if(eraseList && eraseList.includes(nickName)){
                     ls[idx].setAttribute('style', 'display: none;');
                 }
             }
