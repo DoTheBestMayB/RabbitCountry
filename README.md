@@ -1,10 +1,12 @@
 # RabbitCountry
 네이버 카페 게시물 필터링을 도와주는 크롬 확장프로그램 입니다.
 
+[크롬 웹스토어](https://chrome.google.com/webstore/detail/%EB%8B%B9%EA%B7%BC%EB%82%98%EB%9D%BC/efdhlhlgcmepgdejhbnkegfgikopifnm?hl=ko&gl=001&authuser=3)에서도 설치 가능합니다.
+
 문의 사항이 있을 경우 [Issues](https://github.com/DoTheBestMayB/RabbitCountry/issues)에 남겨주세요.
 
 # 안내
-[설치방법](https://github.com/DoTheBestMayB/RabbitCountry/blob/master/doc/HowToInstall.md)
+[직접 설치방법](https://github.com/DoTheBestMayB/RabbitCountry/blob/master/doc/HowToInstall.md)
 
 [사용방법](https://github.com/DoTheBestMayB/RabbitCountry/blob/master/doc/HowToUse.md)
 
