@@ -17,9 +17,9 @@ function injectScript2(tabId, isMutation=true){
 chrome.webNavigation.onDOMContentLoaded.addListener(function(tab){
     if(tab.frameId == 0) {
         chrome.storage.local.get(['hostNameList'], function(data){
-            var hostList = data['hostNameList'];
+            let hostList = data['hostNameList'];
             if(hostList != undefined) {
-                for(var idx=0; idx<hostList.length; idx++){
+                for(let idx=0; idx<hostList.length; idx++){
                     if(tab.url.includes(hostList[idx])) {
                         injectScript2(tab.tabId);
                         break;
