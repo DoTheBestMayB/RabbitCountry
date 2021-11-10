@@ -5,7 +5,7 @@ function add_cafe_name(cafeName) {
         return
     }
     chrome.storage.local.get(['hostNameList'], function(data){
-        var hostNameList = [];
+        let hostNameList = [];
 
         if(data['hostNameList'] != undefined){
             hostNameList = data['hostNameList'];
@@ -21,29 +21,30 @@ function add_cafe_name(cafeName) {
             show_toast_message(cafeName + ' 등록되었습니다!');
             document.querySelector('#cafeName').value = '';
             document.querySelector('#cafeName').focus();
-            var tbody = document.querySelector('#siteTbody');
-            var row = document.querySelector('#siteTbody').insertRow(tbody.rows.length);
-            var cellName = row.insertCell(0);
-            var cellButton = row.insertCell(1);
+            let tbody = document.querySelector('#siteTbody');
+            let row = document.querySelector('#siteTbody').insertRow(tbody.rows.length);
+            let cellName = row.insertCell(0);
+            let cellButton = row.insertCell(1);
             cellName.innerHTML = cafeName;
             cellButton.innerHTML = '<td>' + '<input type="checkbox" class="hostN"/><button type="button" class="hostElement">삭제</button></td> </td>';
-            add_delete_listener('hostElement');
+            add_delete_listener('hostElement', 'hostNameList');
         }
     })
 }
 
-function add_delete_listener(className) {
-    var buttonList = document.querySelectorAll('.'+className);
-    for(var button of buttonList) {
+function add_delete_listener(className, listName) {
+    let buttonList = document.querySelectorAll('.'+className);
+    for(let button of buttonList) {
         button.addEventListener('click', function() {
-            var element = this.parentElement.parentElement
-            var name = element.children[0].textContent
-            chrome.storage.local.get(['eraseList'], function(data){
-                var eraseList = data['eraseList'];
-                eraseList.splice(eraseList.indexOf(name), 1);
+            let element = this.parentElement.parentElement
+            let name = element.children[0].textContent
+            chrome.storage.local.get([listName], function(data){
+                let nameList = data[listName];
+                nameList.splice(nameList.indexOf(name), 1);
                 element.remove();
                 chrome.storage.local.set({
-                    'eraseList': eraseList
+                    // 이 부분 적용 되는지 확인 필요
+                    [listName]: nameList
                 });
             });
         })
@@ -51,9 +52,8 @@ function add_delete_listener(className) {
 }
 
 function show_toast_message(message) {
-    var barElement = document.getElementById('snackbar');
+    let barElement = document.getElementById('snackbar');
     barElement.innerHTML = message;
-
     barElement.className = 'show';
     setTimeout(function(){ barElement.className = barElement.className.replace('show', ''); }, 1000);
 
@@ -102,7 +102,7 @@ document.getElementById('userAddButton').addEventListener('click', function() {
     }
 
     chrome.storage.local.get(['eraseList'], function(data){
-        var eraseList = [];
+        let eraseList = [];
 
         if(data['eraseList'] != undefined){
             // eraseList = data['eraseList'];
@@ -119,24 +119,24 @@ document.getElementById('userAddButton').addEventListener('click', function() {
             show_toast_message(sellerName + ' 등록되었습니다!');
             document.querySelector('#sellerName').value = '';
             document.querySelector('#sellerName').focus();
-            var tbody = document.querySelector('#blockTbody');
-            var row = document.querySelector('#blockTbody').insertRow(tbody.rows.length);
-            var cellName = row.insertCell(0);
-            var cellButton = row.insertCell(1);
+            let tbody = document.querySelector('#blockTbody');
+            let row = document.querySelector('#blockTbody').insertRow(tbody.rows.length);
+            let cellName = row.insertCell(0);
+            let cellButton = row.insertCell(1);
             cellName.innerHTML = sellerName;
             cellButton.innerHTML = '<td>' + '<input type="checkbox" class="userN"/> <button type="button" class="userElement">삭제</button></td>';
-            add_delete_listener('userElement');
+            add_delete_listener('userElement', 'eraseList');
         }
     })
 });
 
 // 차단 유저 삭제하기
 document.getElementById('eraseUser').addEventListener('click', function() {
-    var uList = document.getElementsByClassName('userN');
+    let uList = document.getElementsByClassName('userN');
     if (uList.length > 0) {
         chrome.storage.local.get(['eraseList'], function(data){
-            var eraseList = data['eraseList'];
-            for(var idx=uList.length - 1; idx>=0; idx--){
+            let eraseList = data['eraseList'];
+            for(let idx=uList.length - 1; idx>=0; idx--){
                 if(uList[idx].checked){
                     eraseList.splice(idx, 1);
                     uList[idx].parentElement.parentElement.remove();
@@ -151,7 +151,7 @@ document.getElementById('eraseUser').addEventListener('click', function() {
 
 // 유저 모두 선택/해제
 document.getElementById('selectAllUser').addEventListener('click', function() {
-    var uList = document.getElementsByClassName('userN');
+    let uList = document.getElementsByClassName('userN');
 
     if (uList.length > 0) {
         for (const userElement of uList) {
@@ -162,7 +162,7 @@ document.getElementById('selectAllUser').addEventListener('click', function() {
 
 // 호스트 주소 모두 선택/해제
 document.getElementById('selectAllSite').addEventListener('click', function() {
-    var uList = document.getElementsByClassName('hostN');
+    let uList = document.getElementsByClassName('hostN');
 
     if (uList.length > 0) {
         for (const hostElement of uList) {
@@ -185,17 +185,17 @@ document.getElementById('nowCafeAddButton').addEventListener('click', function()
 
 // 코드 적용 가능한 카페 리스트에 입려한 카페 주소 추가하기
 document.getElementById('cafeAddButton').addEventListener('click', function() {
-    var cafeName = document.querySelector('#cafeName').value;
+    let cafeName = document.querySelector('#cafeName').value;
     add_cafe_name(cafeName);
 });
 
 // checkBox로 선택된 카페를 코드 적용 가능한 카페 리스트에서 제거 하기
 document.getElementById('eraseSite').addEventListener('click', function() {
-    var uList = document.getElementsByClassName('hostN');
+    let uList = document.getElementsByClassName('hostN');
     if(uList.length > 0){
         chrome.storage.local.get(['hostNameList'], function(data){
-            var hostNameList = data['hostNameList'];
-            for(var idx=uList.length - 1; idx>=0; idx--){
+            let hostNameList = data['hostNameList'];
+            for(let idx=uList.length - 1; idx>=0; idx--){
                 if(uList[idx].checked){
                     hostNameList.splice(idx, 1);
                     uList[idx].parentElement.parentElement.remove();
@@ -211,45 +211,38 @@ document.getElementById('eraseSite').addEventListener('click', function() {
 // 유저 테이블 생성
 function makeTable(){
     chrome.storage.local.get(['eraseList'], function(data) {
-        var eraseList = [];
+        let eraseList = [];
 
         if(data['eraseList'] != undefined){
             eraseList = data['eraseList'];
-            var tbody = document.querySelector('#blockTbody');
-            for(var idx=0; idx<eraseList.length; idx++){
-                var row = document.querySelector('#blockTbody').insertRow(tbody.rows.length);
-                var cellName = row.insertCell(0);
-                var cellButton = row.insertCell(1);
+            let tbody = document.querySelector('#blockTbody');
+            for(let idx=0; idx<eraseList.length; idx++){
+                let row = document.querySelector('#blockTbody').insertRow(tbody.rows.length);
+                let cellName = row.insertCell(0);
+                let cellButton = row.insertCell(1);
                 cellName.innerHTML = eraseList[idx];
                 cellButton.innerHTML = '<td>' + '<input type="checkbox" class="userN"/> <button type="button" class="userElement">삭제</button></td>';
             }
-
         }
-
-        add_delete_listener('userElement');
+        add_delete_listener('userElement', 'eraseList');
     });
 
-
-
     chrome.storage.local.get(['hostNameList'], function(data) {
-        var hostNameList = [];
+        let hostNameList = [];
 
         if(data['hostNameList'] != undefined){
             hostNameList = data['hostNameList'];
-            var tbody = document.querySelector('#siteTbody');
-            for(var idx=0; idx<hostNameList.length; idx++){
-                var row = document.querySelector('#siteTbody').insertRow(tbody.rows.length);
-                var cellName = row.insertCell(0);
-                var cellButton = row.insertCell(1);
+            let tbody = document.querySelector('#siteTbody');
+            for(let idx=0; idx<hostNameList.length; idx++){
+                let row = document.querySelector('#siteTbody').insertRow(tbody.rows.length);
+                let cellName = row.insertCell(0);
+                let cellButton = row.insertCell(1);
                 cellName.innerHTML = hostNameList[idx];
                 cellButton.innerHTML = '<td>' + '<input type="checkbox" class="hostN"/><button type="button" class="hostElement">삭제</button></td> </td>';
             }
-
         }
-
-        add_delete_listener('hostElement');
+        add_delete_listener('hostElement', 'hostNameList');
     });
-
 }
 
 window.onload = makeTable;
