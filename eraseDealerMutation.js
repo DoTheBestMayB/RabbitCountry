@@ -1,47 +1,50 @@
-function erase_dealer_initial(){
-    let post_table = fw.document.querySelectorAll('#main-area > div.article-board.m-tcol-c')[1];
-    if(post_table !== undefined){
-        let ls = post_table.querySelectorAll('div.article-board.m-tcol-c > table > tbody > tr');
+function eraseDealerInitial(){
+    const postTable = frameWindow.document.querySelectorAll('#main-area > div.article-board.m-tcol-c')[1];
+    const dealerLink = 'https://cafe.pstatic.net/levelicon/1/1_150.gif';
+
+    if(postTable !== undefined){
+        let postElements = postTable.querySelectorAll('div.article-board.m-tcol-c > table > tbody > tr');
 
         chrome.storage.local.get(['eraseList', 'eraseVIP'], function(data){
-            let eraseList = data['eraseList'];
-            let isDeleteVIP = data['eraseVIP'];
+            const isDeleteVIP = data['eraseVIP'];
 
-            for(let idx=ls.length-1; idx>=0; idx--){
-                let src = ls[idx].querySelector('td.td_name > div > table > tbody > tr > td > span > img').getAttribute('src');
-                let nickName = ls[idx].querySelector('td.td_name > div > table > tbody > tr > td > a').textContent;
+            for(let idx=postElements.length-1; idx>=0; idx--){
+                const src = postElements[idx].querySelector('td.td_name > div > table > tbody > tr > td > span > img').getAttribute('src');
+                const nickName = postElements[idx].querySelector('td.td_name > div > table > tbody > tr > td > a').textContent;
 
-                if(isDeleteVIP && src === dealer_link){
-                    ls[idx].setAttribute('style', 'display: none;');
-                } else if(eraseList && eraseList.includes(nickName)){
-                    ls[idx].setAttribute('style', 'display: none;');
+                if(isDeleteVIP && src === dealerLink){
+                    postElements[idx].setAttribute('style', 'display: none;');
+                } else if(data['eraseList'] && data['eraseList'].includes(nickName)){
+                    postElements[idx].setAttribute('style', 'display: none;');
                 }
             }
         });
     }
 }
 
-function check_frame_ready(e) {
+function checkFrameReady(e) {
     if (!e.type) {
         // DOMException occur until iframe is identified as same-origin as main frame
         try {
-            start_observer(new fw.MutationObserver(erase_dealer));
-            fw.addEventListener('unload', check_frame_ready);
+            start_observer(new frameWindow.MutationObserver(eraseDealer));
+            frameWindow.addEventListener('unload', checkFrameReady);
             return; // to prevent unlimited recursive function call
         } catch (e) {}
     }
-    // If DOMException occur, check_frame_ready is called again.
-    requestAnimationFrame(check_frame_ready);
+    // If DOMException occur, checkFrameReady is called again.
+    requestAnimationFrame(checkFrameReady);
 }
 
-function erase_dealer(mutations, observer) {
+function eraseDealer(mutations, observer) {
+    const SEL = '.td_name img[src="https://cafe.pstatic.net/levelicon/1/1_150.gif"]';
+    const NAME = '.td_name a'
     let stopped;
+
     // mutations have changes as a list of MutationRecord https://javascript.info/mutation-observer
-    // addedNodes is nodes that added
     if(typeof mutations === 'undefined') return
     chrome.storage.local.get(['eraseList', 'eraseVIP'], function(data) {
-        let eraseList = data['eraseList'];
-        let isDeleteVIP = data['eraseVIP'];
+        const isDeleteVIP = data['eraseVIP'];
+
         for (const { addedNodes } of mutations) {
             for (const n of addedNodes) {
                 // pass when encounter text
@@ -49,13 +52,18 @@ function erase_dealer(mutations, observer) {
                 if (!n.tagName){
                     continue;
                 }
+
                 // check addedNode is correct to what want to erase
                 // if n is element what want to erase or n has grand child element what want to erase if n has child element
-                const elems = isDeleteVIP && ( n.matches(SEL) && [n] || n.firstElementChild && n.querySelectorAll(SEL) ) ||
-                    n.matches(NAME) && eraseList && eraseList.includes(n.text) && [n];
-                if (!elems || !elems.length) continue;
+                const elems = isDeleteVIP && n.matches(SEL) && [n] ||
+                    n.matches(NAME) && data['eraseList'] && data['eraseList'].includes(n.text) && [n];
+                if (!elems) {
+                    continue
+                }
+
                 if (!stopped) { stopped = true; observer.disconnect(); }
                 elems.forEach(el => el.closest('.td_name').closest('tr').setAttribute('style', 'display: none;'));
+
             }
         }
         if (stopped) start_observer(observer);
@@ -63,13 +71,12 @@ function erase_dealer(mutations, observer) {
 }
 
 function start_observer(observer) {
-    observer.observe(fw.document.body || fw.document.documentElement,
+    observer.observe(frameWindow.document.body || frameWindow.document.documentElement,
         {childList: true, subtree: true});
 }
 
-let dealer_link = 'https://cafe.pstatic.net/levelicon/1/1_150.gif';
-let SEL = '.td_name img[src="https://cafe.pstatic.net/levelicon/1/1_150.gif"]';
-let NAME = '.td_name a'
-let fw = document.querySelector('#cafe_main').contentWindow;
-erase_dealer_initial();
-fw.addEventListener('unload', check_frame_ready);
+
+var frameWindow = document.querySelector('#cafe_main').contentWindow;
+
+eraseDealerInitial();
+frameWindow.addEventListener('unload', checkFrameReady);

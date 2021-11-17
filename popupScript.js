@@ -20,23 +20,19 @@ document.addEventListener('DOMContentLoaded', function() {
     // 이 부분 storage 이용해서 이전에 클릭했던 마지막 tab 클릭하도록 수정해야 함
     clickTab(event, 'Home');
 
-    let homeTab = document.getElementById('HomeTab');
-    homeTab.addEventListener('click', function () {
+    document.getElementById('HomeTab').addEventListener('click', function () {
         clickTab(event, 'Home');
     });
 
-    let blockTab = document.getElementById('BlockTab');
-    blockTab.addEventListener('click', function () {
+    document.getElementById('BlockTab').addEventListener('click', function () {
         clickTab(event, 'BlockList');
     });
 
-    let siteTab = document.getElementById('SiteTab');
-    siteTab.addEventListener('click', function () {
+    document.getElementById('SiteTab').addEventListener('click', function () {
         clickTab(event, 'Site');
     });
 
-    let etcTab = document.getElementById('EtcTab');
-    etcTab.addEventListener('click', function () {
+    document.getElementById('EtcTab').addEventListener('click', function () {
         clickTab(event, 'Etc');
     });
 });
