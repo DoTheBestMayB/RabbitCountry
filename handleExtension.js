@@ -98,6 +98,9 @@ chrome.storage.local.get(['eraseCheckBox', 'eraseVIP'], function(data){
 // 업자, 등록된 유저 삭제하기
 document.getElementById('eraseButton').addEventListener('change', function() {
     if(this.checked){
+        // 동작 중임을 표시하는 아이콘 표시
+        chrome.action.setBadgeText({text: 'ON'});
+        chrome.action.setBadgeBackgroundColor({color: '#4688F1'});
         // 크롬 스토리지에 상태 저장
         chrome.storage.local.set({
             'eraseCheckBox': this.checked
@@ -105,6 +108,9 @@ document.getElementById('eraseButton').addEventListener('change', function() {
             chrome.runtime.sendMessage({ msg: 'handleExtension'});
         });
     } else{
+        // 동작 중임을 표시하는 아이콘 지우기
+        chrome.action.setBadgeText({text: ''});
+        chrome.action.setBadgeBackgroundColor({color: '#00000000'});
         // 크롬 스토리지에 상태 저장
         chrome.storage.local.set({
             'eraseCheckBox': this.checked
