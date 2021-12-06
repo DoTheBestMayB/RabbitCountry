@@ -105,7 +105,7 @@ document.getElementById('eraseButton').addEventListener('change', function() {
         chrome.storage.local.set({
             'eraseCheckBox': this.checked
         }, _ => {
-            chrome.runtime.sendMessage({ msg: 'handleExtension'});
+            chrome.runtime.sendMessage({ msg: 'eraseDealer'});
         });
     } else{
         // 동작 중임을 표시하는 아이콘 지우기
@@ -115,7 +115,7 @@ document.getElementById('eraseButton').addEventListener('change', function() {
         chrome.storage.local.set({
             'eraseCheckBox': this.checked
         }, _ => {
-            chrome.runtime.sendMessage({ msg: 'handleExtension'});
+            chrome.runtime.sendMessage({ msg: 'eraseDealer'});
         });
     }
 });
@@ -239,5 +239,17 @@ document.getElementById('eraseSite').addEventListener('click', function() {
         });
     }
 });
+
+// 현재 보고 있는 게시물 북마크 추가
+document.getElementById('addBookMark').addEventListener('click', function() {
+    chrome.runtime.sendMessage({ msg: 'addBookMark'}, (response) => {
+        console.log("result is " + response.responseMsg);
+        if (response.responseMsg === true) {
+            showToastMessage("'당근나라' 폴더에 추가되었습니다!");
+        } else {
+            showToastMessage("북마크 추가가 되지 않았습니다.");
+        }
+    });
+})
 
 window.onload = makeTable;
