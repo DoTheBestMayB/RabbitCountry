@@ -2,12 +2,13 @@
     "manifest_version": 3,
     "name": "당근나라",
     "description": "네이버 카페에서 게시물 숨기기를 도와줍니다.",
-    "version": "1.3.2",
+    "version": "1.3.3",
     "background": {
       "service_worker": "background.js"
     },
     "permissions": [
       "activeTab",
+      "bookmarks",
       "scripting",
       "storage",
       "webNavigation",
@@ -19,6 +20,7 @@
   },
   "host_permissions": [
     "*://cafe.naver.com/foo*",
-    "*://cafe.naver.com/foo#*"
+    "*://cafe.naver.com/foo#*",
+    "*://cafe.naver.com/ca-fe/cafes/foo*"
   ]
 }
