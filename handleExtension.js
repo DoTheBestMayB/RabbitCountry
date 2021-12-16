@@ -18,7 +18,7 @@ function addCafeName(cafeName) {
             chrome.storage.local.set({
                 'hostNameList': hostNameList
             });
-            showToastMessage(cafeName + ' 등록되었습니다!');
+            showToastMessage(cafeName + ' 등록되었습니다!<br>적용을 위해 페이지를 새로고침 해주세요!');
 
             document.querySelector('#cafeName').value = '';
             document.querySelector('#cafeName').focus();
