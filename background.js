@@ -101,6 +101,12 @@ function addBookMark(sendResponse, is_alert=false) {
     });
 }
 
+async function getCurrentTab() {
+    let queryOptions = { active: true, currentWindow: true };
+    let [tab] = await chrome.tabs.query(queryOptions);
+    return tab;
+}
+
 chrome.webNavigation.onDOMContentLoaded.addListener(function(tab){
     if(tab.frameId === 0) {
         chrome.storage.local.get(['hostNameList'], function(data){
@@ -131,17 +137,40 @@ chrome.runtime.onMessage.addListener(
     }
 )
 
-chrome.storage.local.get(['eraseCheckBox'], function(data){
-    if (data.eraseCheckBox) {
-        // 동작 중임을 표시하는 아이콘 표시
-        chrome.action.setBadgeText({text: 'ON'});
-        chrome.action.setBadgeBackgroundColor({color: '#4688F1'});
-    } else {
-        // 동작 중임을 표시하는 아이콘 지우기
-        chrome.action.setBadgeText({text: ''});
-        chrome.action.setBadgeBackgroundColor({color: '#00000000'});
-    }
-});
+chrome.tabs.onActivated.addListener((activeInfo) => {
+    chrome.tabs.get(activeInfo.tabId, function(tab){
+        const currentUrl = tab.url;
+
+        chrome.storage.local.get(['eraseCheckBox'], function(data){
+            if (data.eraseCheckBox) {
+                chrome.storage.local.get(['hostNameList'], function(data){
+                    let isOn = false;
+
+                    if(data['hostNameList'] !== undefined) {
+                        for(let idx=0; idx<data['hostNameList'].length; idx++){
+                            if(currentUrl.includes(data['hostNameList'][idx])) {
+                                // 동작 중임을 표시하는 아이콘 표시
+                                chrome.action.setBadgeText({text: 'ON'});
+                                chrome.action.setBadgeBackgroundColor({color: '#4688F1'});
+                                isOn = true;
+                                break;
+                            }
+                        }
+                    }
+                    if (!isOn) {
+                        // 동작 중임을 표시하는 아이콘 지우기
+                        chrome.action.setBadgeText({text: ''});
+                        chrome.action.setBadgeBackgroundColor({color: '#00000000'});
+                    }
+                });
+            } else {
+                // 동작 중임을 표시하는 아이콘 지우기
+                chrome.action.setBadgeText({text: ''});
+                chrome.action.setBadgeBackgroundColor({color: '#00000000'});
+            }
+        });
+    });
+})
 
 chrome.commands.onCommand.addListener((command) => {
     if (command.toString() === 'add-bookmark') {
