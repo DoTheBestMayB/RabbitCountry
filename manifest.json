@@ -29,6 +29,7 @@
     "permissions": [
       "activeTab",
       "bookmarks",
+      "debugger",
       "scripting",
       "storage",
       "webNavigation",
