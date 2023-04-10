@@ -13,6 +13,11 @@
 
 # 개발 내역
 
+## 2023.04.10
+게시물 북마크 단축키 기능 Ctrl+B에서 Ctrl+Shift+E로 수정
+
+[관련 내용](https://github.com/DoTheBestMayB/RabbitCountry/issues/2)
+
 ## 2021.12.29
 뱃지ON 로직 수정
 
@@ -45,7 +50,9 @@ alert 대신 snackbar 사용
 
 첫번째 글은 적용되지 않는 버그 존재
 
-helped with Stackoverflow user wOxxOm [관련 질문](https://stackoverflow.com/questions/68888784/how-to-prevent-hide-and-show-flickering-of-mutationobserver-for-iframe/68891354#68891354) [관련 내용](https://github.com/DoTheBestMayB/RabbitCountry/issues/1)
+helped with Stackoverflow user wOxxOm <br/>
+[관련 질문](https://stackoverflow.com/questions/68888784/how-to-prevent-hide-and-show-flickering-of-mutationobserver-for-iframe/68891354#68891354) <br/>
+[관련 내용](https://github.com/DoTheBestMayB/RabbitCountry/issues/1)
 
 ## 2021.06.28
 적용 가능한 카페 추가/삭제 구현
